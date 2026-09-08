@@ -1,0 +1,61 @@
+catalog = []
+next_id = 1
+
+def add_book_entry(catalog, next_id):
+    title = input("Title: ").strip()
+    author = input("Author: ").strip()
+    genre = input("Genre: ").strip()
+
+    if not title or not author or not genre:
+        print("Error: the title, author or genre name cannot be empty")
+        return next_id
+
+    try:
+        price = float(input("Price: "))
+        copies = int(input("Copies: "))
+        if price <= 0 or copies < 0:
+            print("Error: The price and number or copies must be >0")
+            return next_id
+
+    except ValueError:
+        print("Error: Invalid number entered for price or copies")
+        return next_id
+
+    catalog.append({
+        "ID" : next_id, "title": title, "author": author,
+        "genre": genre, "price": price, "copies": copies
+    })
+    print(f"Book added with ID {next_id}.")
+    return next_id + 1
+
+def render_catalog(catalog):
+    if not catalog:
+        print("Catalog is empty.")
+        return
+
+    if(len(catalog)==1):
+        b = catalog[0]
+        print("----Book Details---")
+        for key, value in b.items():
+            print(f"{key.capitalize()}: {value}")
+        return
+
+    print(f"{'ID':<4} {'title':<25} {'author':<20} {'genre':<12} {'copies':<10} {'price':<7}")
+    print('-'*78)
+    for b in catalog:
+        print(f"{b['ID']:<4} {b['title']:<25} {b['author']:<20} {b['genre']:<12} {b['copies']:<10} {b['price']:<7}")
+
+while True:
+    print("\n1. Add Book | 2. View Catalog | 3. Exit")
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        next_id = add_book_entry(catalog, next_id)
+    elif choice == "2":
+        render_catalog(catalog)
+    elif choice == "3":
+        break
+    else:
+        print("Invalid Choice")
+    
+        

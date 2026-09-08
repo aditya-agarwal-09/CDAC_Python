@@ -45,36 +45,29 @@ inventory = manage_bookstore_inventory(inventory, "sell", "Learning AI", 5)
 def manage_bookstore_inventory(inventory, action, book_title, quantity=0):
 
     if action == "add":
-        # Add to existing stock, or create the book if it doesn't exist
         inventory[book_title] = inventory.get(book_title, 0) + quantity
-
     elif action == "sell":
-        # Check whether the book exists
+      
         if book_title not in inventory:
             print(f"Error: Book '{book_title}' not found in inventory.")
             return inventory
 
         current_stock = inventory[book_title]
 
-        # Check whether enough stock is available
         if quantity > current_stock:
             print(f"Error: Insufficient stock for '{book_title}'. Available: {current_stock}.")
             return inventory
-
-        # Sell the requested quantity
         inventory[book_title] -= quantity
 
-        # Remove the book if stock reaches zero
         if inventory[book_title] == 0:
             del inventory[book_title]
 
-    elif action == "lookup":
-        # Safe lookup; returns 0 if book doesn't exist
+    elif action == "lookup":  
         inventory.get(book_title, 0)
 
     return inventory
 
-inventory = {"Python Basics": 10, "Learning AI": 5}
+inventory = {"Python Basics": 10,  "Learning AI": 5}
 
 # 1. Add Stock
 inventory = manage_bookstore_inventory(inventory, "add", "Python Basics", 5)

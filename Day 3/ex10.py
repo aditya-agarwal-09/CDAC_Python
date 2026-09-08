@@ -38,7 +38,7 @@ col = int(input("Enter col (0-4): "))
 is_food = (row == 2 and col == 3)
 
 grid[row][col] = "S"
-
+                                                              
 for r in grid:
     print(" ".join(r))
 
